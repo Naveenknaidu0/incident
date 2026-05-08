@@ -47,6 +47,18 @@ import {
   ChevronRight,
   ChevronDown,
   Plus,
+  Package,
+  UserCheck,
+  Activity,
+  Repeat,
+  ClipboardCheck,
+  ShoppingCart,
+  Inbox,
+  CheckSquare,
+  Truck,
+  Link2,
+  Lock,
+  Target,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -55,6 +67,7 @@ interface NavItem {
   icon: React.ElementType
   href: string
   badge?: number
+  children?: NavItem[]
 }
 
 interface NavSection {
@@ -64,111 +77,118 @@ interface NavSection {
 
 const navigation: NavSection[] = [
   {
-    title: "",
+    title: "HOME",
     items: [
       { label: "Dashboard", icon: LayoutDashboard, href: "/" },
     ],
   },
   {
-    title: "INCIDENTS",
-    items: [
-      { label: "Create Incident", icon: Plus, href: "/incidents/create" },
-      { label: "All Incidents", icon: AlertCircle, href: "/incidents/all", badge: 847 },
-      { label: "Open", icon: FolderOpen, href: "/incidents/open", badge: 42 },
-      { label: "In Progress", icon: Clock, href: "/incidents/in-progress", badge: 18 },
-      { label: "Resolved", icon: CheckCircle, href: "/incidents/resolved", badge: 156 },
-      { label: "Closed", icon: XCircle, href: "/incidents/closed", badge: 1243 },
-      { label: "Escalated", icon: ArrowUpRight, href: "/incidents/escalated", badge: 5 },
-      { label: "VIP Incidents", icon: Star, href: "/incidents/vip", badge: 3 },
-      { label: "Watchlist", icon: Eye, href: "/incidents/watchlist", badge: 7 },
-    ],
-  },
-  {
-    title: "MAJOR INCIDENT",
-    items: [
-      { label: "Major Incidents", icon: Siren, href: "/major-incidents", badge: 2 },
-      { label: "War Room", icon: Users, href: "/war-room" },
-      { label: "Communication Center", icon: MessageSquare, href: "/communications" },
-      { label: "Stakeholders", icon: Users, href: "/communications/stakeholders" },
-      { label: "Broadcast Center", icon: Megaphone, href: "/communications/broadcast" },
-      { label: "PIR Reports", icon: FileText, href: "/pir-reports" },
-    ],
-  },
-  {
-    title: "ON-CALL",
-    items: [
-      { label: "On-Call Dashboard", icon: Phone, href: "/oncall" },
-      { label: "Responders", icon: Users, href: "/oncall/responders" },
-      { label: "Escalations", icon: ArrowUpRight, href: "/oncall/escalations" },
-      { label: "Schedules", icon: Calendar, href: "/oncall/schedules" },
-      { label: "Policies", icon: FileText, href: "/oncall/policies" },
-      { label: "Paging", icon: Bell, href: "/oncall/paging" },
-    ],
-  },
-  {
     title: "OPERATIONS",
     items: [
-      { label: "Tasks", icon: ListTodo, href: "/tasks", badge: 12 },
-      { label: "SLA Operations", icon: Timer, href: "/sla", badge: 23 },
-      { label: "Escalation Center", icon: AlertTriangle, href: "/sla/escalations", badge: 6 },
-      { label: "SLA Policies", icon: FileText, href: "/sla/policies" },
-      { label: "Breach Analytics", icon: BarChart3, href: "/sla/analytics" },
-      { label: "Automation Rules", icon: Zap, href: "/automation" },
-      { label: "Runbooks", icon: BookOpen, href: "/runbooks" },
+      { 
+        label: "Incident Management", 
+        icon: AlertCircle, 
+        href: "/operations/incidents",
+        children: [
+          { label: "Incident Dashboard", icon: LayoutDashboard, href: "/operations/incidents" },
+          { label: "Create Incident", icon: Plus, href: "/operations/incidents/create" },
+          { label: "All Incidents", icon: AlertCircle, href: "/operations/incidents/all", badge: 847 },
+          { label: "Open", icon: FolderOpen, href: "/operations/incidents/open", badge: 42 },
+          { label: "In Progress", icon: Clock, href: "/operations/incidents/in-progress", badge: 18 },
+          { label: "Resolved", icon: CheckCircle, href: "/operations/incidents/resolved", badge: 156 },
+          { label: "Closed", icon: XCircle, href: "/operations/incidents/closed", badge: 1243 },
+          { label: "Escalated", icon: ArrowUpRight, href: "/operations/incidents/escalated", badge: 5 },
+          { label: "VIP Incidents", icon: Star, href: "/operations/incidents/vip", badge: 3 },
+          { label: "Watchlist", icon: Eye, href: "/operations/incidents/watchlist", badge: 7 },
+          { label: "SLA Operations", icon: Timer, href: "/operations/incidents/sla", badge: 23 },
+          { label: "Escalation Center", icon: AlertTriangle, href: "/operations/incidents/escalations", badge: 6 },
+          { label: "SLA Policies", icon: FileText, href: "/operations/incidents/sla-policies" },
+          { label: "Breach Analytics", icon: BarChart3, href: "/operations/incidents/breach-analytics" },
+          { label: "Automation Rules", icon: Zap, href: "/operations/incidents/automation" },
+          { label: "Runbooks", icon: BookOpen, href: "/operations/incidents/runbooks" },
+        ]
+      },
+      { 
+        label: "Major Incident Management", 
+        icon: Siren, 
+        href: "/operations/major-incidents",
+        children: [
+          { label: "Major Incidents", icon: Siren, href: "/operations/major-incidents", badge: 2 },
+          { label: "War Room", icon: Users, href: "/operations/major-incidents/war-room" },
+          { label: "Communication Center", icon: MessageSquare, href: "/operations/major-incidents/communications" },
+          { label: "Stakeholders", icon: Users, href: "/operations/major-incidents/stakeholders" },
+          { label: "Broadcast Center", icon: Megaphone, href: "/operations/major-incidents/broadcast" },
+          { label: "PIR Reports", icon: FileText, href: "/operations/major-incidents/pir-reports" },
+        ]
+      },
+      { 
+        label: "Problem Management", 
+        icon: Bug, 
+        href: "/operations/problems",
+        children: [
+          { label: "Problem Dashboard", icon: AlertTriangle, href: "/operations/problems" },
+          { label: "Root Cause Analysis", icon: Target, href: "/operations/problems/rca" },
+          { label: "Known Errors", icon: Bug, href: "/operations/problems/known-errors" },
+          { label: "Permanent Fixes", icon: Wrench, href: "/operations/problems/fixes" },
+          { label: "Learnings", icon: Lightbulb, href: "/operations/problems/learnings" },
+        ]
+      },
+      { 
+        label: "Change Management", 
+        icon: GitBranch, 
+        href: "/operations/changes",
+        children: [
+          { label: "Change Dashboard", icon: LayoutDashboard, href: "/operations/changes" },
+          { label: "Change Requests", icon: FileText, href: "/operations/changes/requests" },
+          { label: "Change Approvals", icon: CheckSquare, href: "/operations/changes/approvals" },
+          { label: "CAB Management", icon: Users, href: "/operations/changes/cab" },
+          { label: "Release Calendar", icon: Calendar, href: "/operations/changes/calendar" },
+        ]
+      },
+      { 
+        label: "Service Requests", 
+        icon: ShoppingCart, 
+        href: "/operations/requests",
+        children: [
+          { label: "Service Catalog", icon: Layers, href: "/operations/requests/catalog" },
+          { label: "Requests", icon: Inbox, href: "/operations/requests" },
+          { label: "Approvals", icon: CheckSquare, href: "/operations/requests/approvals" },
+          { label: "Fulfillment", icon: Truck, href: "/operations/requests/fulfillment" },
+          { label: "Request Analytics", icon: BarChart3, href: "/operations/requests/analytics" },
+        ]
+      },
     ],
   },
   {
-    title: "PROBLEM MANAGEMENT",
+    title: "ASSETS",
     items: [
-      { label: "Problem Dashboard", icon: AlertTriangle, href: "/problems" },
-      { label: "Known Errors", icon: Bug, href: "/problems?tab=known-errors" },
-      { label: "Permanent Fixes", icon: Wrench, href: "/problems?tab=fixes" },
-      { label: "Learnings", icon: Lightbulb, href: "/problems?tab=learnings" },
+      { label: "Asset Inventory", icon: Package, href: "/assets/inventory" },
+      { label: "Asset Ownership", icon: UserCheck, href: "/assets/ownership" },
+      { label: "Asset Lifecycle", icon: Activity, href: "/assets/lifecycle" },
     ],
   },
   {
-    title: "SERVICE MANAGEMENT",
+    title: "ANALYTICS",
     items: [
-      { label: "CMDB Dashboard", icon: Database, href: "/cmdb" },
-      { label: "Service Catalog", icon: Layers, href: "/cmdb/services" },
-      { label: "CI Explorer", icon: GitBranch, href: "/cmdb/ci" },
-      { label: "Dependencies", icon: GitBranch, href: "/cmdb/dependencies" },
-      { label: "Impact Analysis", icon: Layers, href: "/cmdb/impact" },
+      { label: "Dashboard Analytics", icon: BarChart3, href: "/analytics" },
+      { label: "Standard Reports", icon: FileText, href: "/analytics/reports" },
+      { label: "Custom Reports", icon: PieChart, href: "/analytics/custom-reports" },
+      { label: "Agent Performance", icon: TrendingUp, href: "/analytics/agent-performance" },
     ],
   },
   {
-    title: "KNOWLEDGE & AI",
+    title: "PLATFORM",
     items: [
-      { label: "Knowledge Base", icon: BookOpen, href: "/knowledge" },
-      { label: "Known Errors", icon: AlertTriangle, href: "/knowledge/known-errors" },
-      { label: "Runbooks", icon: FileText, href: "/knowledge/runbooks" },
-      { label: "KB Analytics", icon: Brain, href: "/knowledge/analytics" },
-    ],
-  },
-  {
-    title: "REPORTING",
-    items: [
-      { label: "Analytics Dashboard", icon: BarChart3, href: "/analytics" },
-      { label: "Custom Reports", icon: PieChart, href: "/analytics/reports" },
-      { label: "Export Center", icon: TrendingUp, href: "/analytics/exports" },
-    ],
-  },
-  {
-    title: "ADMINISTRATION",
-    items: [
-      { label: "Templates", icon: FileEdit, href: "/templates" },
-      { label: "Forms & Fields", icon: FormInput, href: "/forms" },
-      { label: "Communication Plans", icon: Megaphone, href: "/communication-plans" },
-      { label: "Audit Center", icon: ScrollText, href: "/audit" },
-      { label: "Governance", icon: Shield, href: "/audit/governance" },
-      { label: "Compliance", icon: Shield, href: "/audit/compliance" },
-      { label: "Access Visibility", icon: Eye, href: "/audit/access" },
-      { label: "Settings", icon: Settings, href: "/settings" },
+      { label: "Integrations", icon: Link2, href: "/platform/integrations" },
+      { label: "Audit Logs", icon: ScrollText, href: "/platform/audit" },
+      { label: "Compliance", icon: Shield, href: "/platform/compliance" },
+      { label: "Access Visibility", icon: Lock, href: "/platform/access" },
+      { label: "Settings", icon: Settings, href: "/platform/settings" },
     ],
   },
 ]
 
-function NavItemComponent({ item, isCollapsed, isActive }: { item: NavItem; isCollapsed: boolean; isActive: boolean }) {
+function NavItemComponent({ item, isCollapsed, isActive, depth = 0 }: { item: NavItem; isCollapsed: boolean; isActive: boolean; depth?: number }) {
   const Icon = item.icon
 
   return (
@@ -179,7 +199,8 @@ function NavItemComponent({ item, isCollapsed, isActive }: { item: NavItem; isCo
         "hover:bg-sidebar-accent",
         isActive
           ? "bg-sidebar-accent text-sidebar-primary"
-          : "text-sidebar-foreground/80 hover:text-sidebar-foreground"
+          : "text-sidebar-foreground/80 hover:text-sidebar-foreground",
+        depth > 0 && "pl-9 text-[13px]"
       )}
     >
       <Icon className="h-4 w-4 shrink-0" />
@@ -208,11 +229,82 @@ function NavItemComponent({ item, isCollapsed, isActive }: { item: NavItem; isCo
   )
 }
 
+function ModuleNavItem({ item, isCollapsed, pathname }: { item: NavItem; isCollapsed: boolean; pathname: string }) {
+  const [isExpanded, setIsExpanded] = useState(() => {
+    // Auto-expand if current path is within this module
+    return pathname.startsWith(item.href)
+  })
+  const Icon = item.icon
+  const hasChildren = item.children && item.children.length > 0
+  const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
+
+  if (!hasChildren) {
+    return (
+      <NavItemComponent item={item} isCollapsed={isCollapsed} isActive={pathname === item.href} />
+    )
+  }
+
+  return (
+    <div className="space-y-0.5">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className={cn(
+          "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+          "hover:bg-sidebar-accent",
+          isActive
+            ? "bg-sidebar-accent/50 text-sidebar-primary"
+            : "text-sidebar-foreground/80 hover:text-sidebar-foreground"
+        )}
+      >
+        <Icon className="h-4 w-4 shrink-0" />
+        {!isCollapsed && (
+          <>
+            <span className="flex-1 truncate text-left">{item.label}</span>
+            <motion.div
+              animate={{ rotate: isExpanded ? 0 : -90 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronDown className="h-3 w-3" />
+            </motion.div>
+          </>
+        )}
+      </button>
+      <AnimatePresence initial={false}>
+        {isExpanded && !isCollapsed && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-0.5 overflow-hidden border-l border-sidebar-border ml-5 pl-2"
+          >
+            {item.children?.map((child) => (
+              <NavItemComponent
+                key={child.href}
+                item={child}
+                isCollapsed={isCollapsed}
+                isActive={pathname === child.href}
+                depth={1}
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 function NavSectionComponent({ section, isCollapsed, pathname }: { section: NavSection; isCollapsed: boolean; pathname: string }) {
   const [isOpen, setIsOpen] = useState(true)
 
   // Check if current section has an active item
-  const hasActiveItem = section.items.some((item) => pathname === item.href || pathname.startsWith(item.href + "/"))
+  const hasActiveItem = section.items.some((item) => {
+    if (pathname === item.href || pathname.startsWith(item.href + "/")) return true
+    if (item.children) {
+      return item.children.some((child) => pathname === child.href || pathname.startsWith(child.href + "/"))
+    }
+    return false
+  })
 
   return (
     <div className="space-y-1">
@@ -245,11 +337,11 @@ function NavSectionComponent({ section, isCollapsed, pathname }: { section: NavS
             className="space-y-0.5 overflow-hidden"
           >
             {section.items.map((item) => (
-              <NavItemComponent
+              <ModuleNavItem
                 key={item.href}
                 item={item}
                 isCollapsed={isCollapsed}
-                isActive={pathname === item.href}
+                pathname={pathname}
               />
             ))}
           </motion.div>
